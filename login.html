@@ -36,7 +36,6 @@
             overflow: hidden;
         }
 
-        /*--- লগইন কন্টেইনার ---*/
         .auth-container {
             width: 100%;
             max-width: 420px;
@@ -76,7 +75,6 @@
             margin-bottom: 30px;
         }
 
-        /*--- ইনপুট ফিল্ড ডিজাইন ---*/
         .input-group {
             text-align: left;
             margin-bottom: 20px;
@@ -122,7 +120,6 @@
             box-shadow: 0 0 15px rgba(255, 45, 85, 0.1);
         }
 
-        /*--- বাটন ও লিংক ---*/
         .auth-btn {
             width: 100%;
             background-color: var(--primary-pink);
@@ -170,7 +167,6 @@
             color: white;
         }
 
-        /* হাইড/শো করার জন্য সিম্পল ক্লাস */
         .hidden { display: none; }
     </style>
 </head>
@@ -190,7 +186,7 @@
                 <label>Email Address</label>
                 <div class="input-wrapper">
                     <i class="fa-solid fa-envelope"></i>
-                    <input type="email" placeholder="example@gmail.com">
+                    <input type="email" id="login-email" placeholder="example@gmail.com">
                 </div>
             </div>
 
@@ -198,11 +194,11 @@
                 <label>Password</label>
                 <div class="input-wrapper">
                     <i class="fa-solid fa-lock"></i>
-                    <input type="password" placeholder="••••••••">
+                    <input type="password" id="login-password" placeholder="••••••••">
                 </div>
             </div>
 
-            <a href="dashboard.html" class="auth-btn">Login to Account</a>
+            <button class="auth-btn" onclick="handleLogin()">Login to Account</button>
 
             <div class="extra-links">
                 Don't have an account? <a href="#" onclick="toggleAuth()">Register Now</a>
@@ -223,7 +219,7 @@
                 <label>Full Name</label>
                 <div class="input-wrapper">
                     <i class="fa-solid fa-user"></i>
-                    <input type="text" placeholder="Enter your name">
+                    <input type="text" id="reg-name" placeholder="Enter your name">
                 </div>
             </div>
 
@@ -231,7 +227,7 @@
                 <label>Email Address</label>
                 <div class="input-wrapper">
                     <i class="fa-solid fa-envelope"></i>
-                    <input type="email" placeholder="example@gmail.com">
+                    <input type="email" id="reg-email" placeholder="example@gmail.com">
                 </div>
             </div>
 
@@ -239,11 +235,11 @@
                 <label>Set Password</label>
                 <div class="input-wrapper">
                     <i class="fa-solid fa-lock"></i>
-                    <input type="password" placeholder="••••••••">
+                    <input type="password" id="reg-password" placeholder="••••••••">
                 </div>
             </div>
 
-            <button class="auth-btn" onclick="alert('Registration Successful! Please Login.')">Create My Account</button>
+            <button class="auth-btn" onclick="handleRegister()">Create My Account</button>
 
             <div class="extra-links">
                 Already have an account? <a href="#" onclick="toggleAuth()">Login Here</a>
@@ -253,10 +249,55 @@
     </div>
 
     <script>
-        // লগইন এবং রেজিস্টার ফর্ম অদলবদল করার ফাংশন
+        // ফর্ম অদলবদল (Login / Register) করার ফাংশন
         function toggleAuth() {
             document.getElementById('login-form').classList.toggle('hidden');
             document.getElementById('register-form').classList.toggle('hidden');
+        }
+
+        // ১. রেজিস্ট্রেশন করার সময় ডাটা ব্রাউজারে সেভ করার ফাংশন
+        function handleRegister() {
+            const name = document.getElementById('reg-name').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const password = document.getElementById('reg-password').value.trim();
+
+            // খালি ইনপুট চেক করা
+            if(name === "" || email === "" || password === "") {
+                alert('দয়া করে সবগুলো বক্স পূরণ করুন!');
+                return;
+            }
+
+            // ব্রাউজারের মেমোরিতে (LocalStorage) ডাটা সেভ করে রাখা হচ্ছে
+            localStorage.setItem('saved_email', email);
+            localStorage.setItem('saved_password', password);
+            localStorage.setItem('saved_name', name);
+
+            alert('আপনার একাউন্ট সফলভাবে তৈরি হয়েছে! এবার সঠিক ইমেইল ও পাসওয়ার্ড দিয়ে লগইন করুন।');
+            toggleAuth(); // অটোমেটিক লগইন স্ক্রিনে নিয়ে যাবে
+        }
+
+        // ২. লগইন করার সময় সঠিক ডাটা যাচাই করার ফাংশন
+        function handleLogin() {
+            const emailInput = document.getElementById('login-email').value.trim();
+            const passwordInput = document.getElementById('login-password').value.trim();
+
+            // ব্রাউজার মেমোরি থেকে আগের সেভ করা ডাটা তুলে আনা হচ্ছে
+            const savedEmail = localStorage.getItem('saved_email');
+            const savedPassword = localStorage.getItem('saved_password');
+
+            // যদি কোনো একাউন্ট রেজিস্টার করাই না থাকে
+            if(!savedEmail) {
+                alert('এই ব্রাউজারে কোনো একাউন্ট খুঁজে পাওয়া যায়নি! প্রথমে Register Now-তে ক্লিক করে একাউন্ট তৈরি করুন।');
+                return;
+            }
+
+            // ইনপুট দেওয়া ডাটার সাথে ম্যাচিং চেক করা হচ্ছে
+            if (emailInput === savedEmail && passwordInput === savedPassword) {
+                alert('অভিনন্দন! লগইন সফল হয়েছে।');
+                window.location.href = 'dashboard.html'; // শুধু মিললেই ড্যাশবোর্ডে ঢুকতে দেবে
+            } else {
+                alert('দুঃখিত! ভুল ইমেইল বা পাসওয়ার্ড দিয়েছেন। আবার চেষ্টা করুন।');
+            }
         }
     </script>
 
