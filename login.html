@@ -245,15 +245,15 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        // ফায়ারবেস কনফিগারেশন অবজেক্ট সরাসরি ডিফাইন করা হলো
+        // আপনার ফায়ারবেসের একদম লেটেস্ট ও একুরেট ডাটা এখানে আপডেট করে দেওয়া হলো
         const firebaseConfig = {
             apiKey: "AIzaSyDitknDA_jj50sWbLb4DVlRXQ1HVmRLJIs",
             authDomain: "adomi-academy.firebaseapp.com",
             projectId: "adomi-academy",
             storageBucket: "adomi-academy.firebasestorage.app",
             messagingSenderId: "1048951424363",
-            appId: "1:1048951424363:web:c8d8204bd0b60cee4e382e",
-            measurementId: "G-7YVBYPQK73"
+            appId: "1:1048951424363:web:4ea1e1075dd5e04e4e382e",
+            measurementId: "G-SJFN79PQ1T"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -324,7 +324,7 @@
                     .catch((error) => {
                         alert('গুগল লগইন বাতিল বা ব্যর্থ হয়েছে।');
                     });
-            });
+                });
         });
     </script>
 </body>
