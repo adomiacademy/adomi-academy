@@ -1,150 +1,338 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>All Courses - Adomi Academy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Courses - Adomi Academy</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<style>
-body{
-font-family:Arial,sans-serif;
-background:#f5f7fb;
-margin:0;
-padding:0;
-}
+    <style>
+        :root {
+            --bg-dark: #0b111e;       
+            --bg-card: #111827;       
+            --text-main: #ffffff;     
+            --text-muted: #9ca3af;    
+            --primary-pink: #ff2d55;  
+            --accent-purple: #6366f1;  
+        }
 
-header{
-background:linear-gradient(135deg,#2563eb,#7c3aed);
-color:white;
-padding:40px;
-text-align:center;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
 
-.courses{
-max-width:1200px;
-margin:auto;
-padding:40px 20px;
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:25px;
-}
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+        }
 
-.card{
-background:white;
-border-radius:15px;
-padding:20px;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
-}
+        /*--- নেভিগেশন বার ---*/
+        .navbar {
+            background-color: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
 
-.card h3{
-margin-top:0;
-}
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-main);
+            font-size: 22px;
+            font-weight: 700;
+            text-decoration: none;
+        }
 
-.price{
-color:#2563eb;
-font-size:24px;
-font-weight:bold;
-}
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
 
-.btn{
-display:inline-block;
-padding:12px 20px;
-background:#2563eb;
-color:white;
-text-decoration:none;
-border-radius:8px;
-margin-top:10px;
-}
-</style>
+        .nav-links li a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .nav-links li a.active {
+            color: var(--text-main);
+        }
+
+        .nav-buttons {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .login-btn {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .register-btn {
+            background-color: var(--primary-pink);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        /*--- হেডিং সেকশন ---*/
+        .page-header {
+            text-align: center;
+            padding: 50px 8% 20px 8%;
+        }
+
+        .page-header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        /*--- কোর্স গ্রিড সেকশন ---*/
+        .courses-container {
+            padding: 40px 8% 80px 8%;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        /* ছবির মতো কাস্টম কোর্স কার্ড ডিজাইন */
+        .course-card {
+            background-color: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: 0.3s ease;
+            text-decoration: none;
+            color: white;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* ছবির ব্যাকগ্রাউন্ডের মতো কালার ইফেক্ট */
+        .course-banner {
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            position: relative;
+        }
+
+        /* ছবিতে থাকা লোগো ও ব্যাকগ্রাউন্ড কালার ম্যাচিং */
+        .banner-cpa { background: linear-gradient(135deg, #0f172a, #1e3a8a); color: #38bdf8; }
+        .banner-ai { background: linear-gradient(135deg, #1e1b4b, #311042); color: #c084fc; }
+        .banner-video { background: linear-gradient(135deg, #111827, #065f46); color: #34d399; }
+        .banner-marketing { background: linear-gradient(135deg, #1c1917, #7c2d12); color: #fb923c; }
+
+        .banner-text-center {
+            font-weight: 800;
+            font-size: 24px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .course-body {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .course-body h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .course-body p {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        /* ইনফো এবং প্রাইস সেকশন (ছবির মতো নিচে ৳ ট্যাগ) */
+        .course-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .meta-info {
+            display: flex;
+            gap: 15px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .meta-info span i {
+            color: var(--text-muted);
+            margin-right: 5px;
+        }
+
+        .price-tag {
+            color: var(--primary-pink);
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        /* ফুটার */
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .courses-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
-
 <body>
 
-<header>
-<h1>Adomi Academy Courses</h1>
-<p>Learn High Income Skills & Build Your Career</p>
-</header>
+    <div class="navbar">
+        <a href="index.html" class="logo">
+            <i class="fa-solid fa-graduation-cap" style="color: var(--primary-pink);"></i>
+            <span>Adomi Academy</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="courses.html" class="active">Courses</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="nav-buttons">
+            <a href="login.html" class="login-btn">Login</a>
+            <a href="login.html" class="register-btn">Register</a>
+        </div>
+    </div>
 
-<section class="courses">
+    <div class="page-header">
+        <h1>Popular Courses</h1>
+        <p>আপনার পছন্দের কোর্সটি বেছে নিয়ে আজই শেখা শুরু করুন</p>
+    </div>
 
-<div class="card">
-<h3>CPA Marketing</h3>
-<p>Complete CPA Marketing Masterclass</p>
-<p class="price">৳999</p>
-<a href="course-details.html" class="btn">View Details</a>
-</div>
+    <div class="courses-container">
+        <div class="courses-grid">
 
-<div class="card">
-<h3>Adsterra Marketing A-Z</h3>
-<p>Earn from Adsterra step by step</p>
-<p class="price">৳999</p>
-<a href="course-details.html" class="btn">View Details</a>
-</div>
+            <a href="course-details.html" class="course-card">
+                <div class="course-banner banner-cpa">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <div class="banner-text-center">CPA Marketing</div>
+                </div>
+                <div class="course-body">
+                    <h3>CPA Marketing Full Course</h3>
+                    <p>সঠিক গাইডলাইনের মাধ্যমে সিপিএ মার্কেটিং শিখে প্রতি মাসে পার্ট-টাইম বা ফুল-টাইম ইনকাম শুরু করুন।</p>
+                    <div class="course-footer">
+                        <div class="meta-info">
+                            <span><i class="fa-solid fa-book"></i> 25 Lessons</span>
+                            <span><i class="fa-solid fa-clock"></i> 12h 30m</span>
+                        </div>
+                        <div class="price-tag">৳২,৫ অনু</div>
+                    </div>
+                </div>
+            </a>
 
-<div class="card">
-<h3>Video Editing</h3>
-<p>Professional Video Editing Course</p>
-<p class="price">৳1499</p>
-<a href="course-details.html" class="btn">View Details</a>
-</div>
+            <a href="course-details.html" class="course-card">
+                <div class="course-banner banner-ai">
+                    <i class="fa-solid fa-brain"></i>
+                    <div class="banner-text-center">AI Mastery</div>
+                </div>
+                <div class="course-body">
+                    <h3>AI, ChatGPT & Automation</h3>
+                    <p>আর্টিফিশিয়াল ইন্টেলিজেন্স ও চ্যাটজিপিটি টুলস ব্যবহার করে আপনার দৈনন্দিন কাজকে ১০ গুণ দ্রুত করুন।</p>
+                    <div class="course-footer">
+                        <div class="meta-info">
+                            <span><i class="fa-solid fa-book"></i> 18 Lessons</span>
+                            <span><i class="fa-solid fa-clock"></i> 8h 45m</span>
+                        </div>
+                        <div class="price-tag">৳২,০০০</div>
+                    </div>
+                </div>
+            </a>
 
-<div class="card">
-<h3>Digital Marketing</h3>
-<p>Complete Digital Marketing Training</p>
-<p class="price">৳1499</p>
-<a href="course-details.html" class="btn">View Details</a>
-</div>
+            <a href="course-details.html" class="course-card">
+                <div class="course-banner banner-video">
+                    <i class="fa-solid fa-clapperboard"></i>
+                    <div class="banner-text-center">Video Editing</div>
+                </div>
+                <div class="course-body">
+                    <h3>Professional Video Editing Training</h3>
+                    <p>মোবাইল এবং কম্পিউটার দিয়ে প্রফেশনাল লেভেলের ভিডিও এডিটিং শিখে ফ্রিল্যান্সিং ক্যারিয়ার শুরু করুন।</p>
+                    <div class="course-footer">
+                        <div class="meta-info">
+                            <span><i class="fa-solid fa-book"></i> 20 Lessons</span>
+                            <span><i class="fa-solid fa-clock"></i> 10h 15m</span>
+                        </div>
+                        <div class="price-tag">৳১,৮০০</div>
+                    </div>
+                </div>
+            </a>
 
-<div class="card">
-<h3>Graphic Design</h3>
-<p>Learn Graphic Design from scratch</p>
-<p class="price">৳1499</p>
-<a href="course-details.html" class="btn">View Details</a>
-</div>
+            <a href="course-details.html" class="course-card">
+                <div class="course-banner banner-marketing">
+                    <i class="fa-solid fa-share-nodes"></i>
+                    <div class="banner-text-center">Digital Marketing</div>
+                </div>
+                <div class="course-body">
+                    <h3>Facebook Ads & Digital Marketing</h3>
+                    <p>ফেসবুক অ্যাডস রান করা থেকে শুরু করে অ্যাডভান্সড সেলস ফানেল তৈরি করার কমপ্লিট মার্কেটিং স্ট্র্যাটেজি।</p>
+                    <div class="course-footer">
+                        <div class="meta-info">
+                            <span><i class="fa-solid fa-book"></i> 14 Lessons</span>
+                            <span><i class="fa-solid fa-clock"></i> 6h 30m</span>
+                        </div>
+                        <div class="price-tag">৳১,৬০০</div>
+                    </div>
+                </div>
+            </a>
 
-<div class="card">
-<h3>YouTube & Facebook Success</h3>
-<p>Grow your social media audience</p>
-<p class="price">৳1299</p>
-<a href="course-details.html" class="btn">View Details</a>
-</div>
+        </div>
+    </div>
 
-<div class="card">
-<h3>AI Course</h3>
-<p>Learn AI Tools and Automation</p>
-<p class="price">৳1499</p>
-<a href="course-details.html" class="btn">View Details</a>
-</div>
-
-<div class="card">
-<h3>T-Shirt Design</h3>
-<p>Create and sell T-shirt designs</p>
-<p class="price">৳999</p>
-<a href="course-details.html" class="btn">View Details</a>
-</div>
-
-<div class="card">
-<h3>Freelancing With Mobile</h3>
-<p>Start freelancing using your phone</p>
-<p class="price">৳999</p>
-<a href="course-details.html" class="btn">View Details</a>
-</div>
-
-<div class="card">
-<h3>CapCut Editing With Mobile</h3>
-<p>Edit videos professionally with CapCut</p>
-<p class="price">৳999</p>
-<a href="course-details.html" class="btn">View Details</a>
-</div>
-
-<div class="card">
-<h3>Content Creation With Mobile</h3>
-<p>Create viral content using mobile</p>
-<p class="price">৳999</p>
-<a href="course-details.html" class="btn">View Details</a>
-</div>
-
-</section>
+    <footer>
+        © 2026 Adomi Academy. All Rights Reserved.
+    </footer>
 
 </body>
 </html>
