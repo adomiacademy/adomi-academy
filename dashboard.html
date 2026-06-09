@@ -1,1 +1,78 @@
-<h1>Student Dashboard</h1>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Dashboard</title>
+
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#f4f7fc;
+margin:0;
+}
+
+.header{
+background:#111827;
+color:white;
+padding:20px;
+}
+
+.container{
+padding:40px;
+}
+
+.course{
+background:white;
+padding:20px;
+border-radius:12px;
+margin-bottom:15px;
+box-shadow:0 5px 15px rgba(0,0,0,.08);
+display:flex;
+justify-content:space-between;
+}
+
+.locked{
+color:red;
+font-weight:bold;
+}
+
+.unlocked{
+color:green;
+font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<h2>Welcome Student</h2>
+</div>
+
+<div class="container">
+
+<div class="course">
+<span>CPA Marketing</span>
+<span class="unlocked">Unlocked</span>
+</div>
+
+<div class="course">
+<span>AI Course</span>
+<span class="locked">Locked</span>
+</div>
+
+<div class="course">
+<span>Graphic Design</span>
+<span class="locked">Locked</span>
+</div>
+
+<div class="course">
+<span>Digital Marketing</span>
+<span class="locked">Locked</span>
+</div>
+
+</div>
+
+</body>
+</html>
