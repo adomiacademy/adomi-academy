@@ -107,7 +107,6 @@
 
         .auth-btn:hover { transform: translateY(-2px); opacity: 0.9; }
 
-        /*--- ওআর ডিভাইডার ---*/
         .divider {
             display: flex;
             align-items: center;
@@ -124,7 +123,6 @@
         .divider:not(:empty)::before { margin-right: .5em; }
         .divider:not(:empty)::after { margin-left: .5em; }
 
-        /*--- গুগল লগইন বাটন ---*/
         .google-btn {
             width: 100%;
             background: rgba(255, 255, 255, 0.05);
@@ -247,9 +245,9 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        // আপনার ফায়ারবেস ডাটা
+        // স্ট্রিং ফরম্যাট করে সরাসরি অবজেক্টে নিখুঁতভাবে রিড করার ব্যবস্থা করা হলো
         const firebaseConfig = {
-            apiKey: "AIzaSyDitknDA_jj50sWbLb4DVlRXQ1HVmRLJIs",
+            apiKey: String("AIzaSyDitknDA_jj50sWbLb4DVlRXQ1HVmRLJIs"),
             authDomain: "adomi-academy.firebaseapp.com",
             projectId: "adomi-academy",
             storageBucket: "adomi-academy.firebasestorage.app",
@@ -314,14 +312,14 @@
                 });
         });
 
-        // ৩. গুগল দিয়ে ওয়ান-ক্লিক লগইন (উভয় বাটনের জন্যই)
+        // ৩. গুগল দিয়ে ওয়ান-ক্লিক লগইন
         const googleButtons = document.querySelectorAll('.btn-google');
         googleButtons.forEach(button => {
             button.addEventListener('click', () => {
                 signInWithPopup(auth, provider)
                     .then((result) => {
                         alert('গুগল লগইন সফল হয়েছে!');
-                        window.location.href = 'dashboard.html'; // সরাসরি ড্যাশবোর্ডে নিয়ে যাবে
+                        window.location.href = 'dashboard.html';
                     })
                     .catch((error) => {
                         alert('গুগল লগইন বাতিল বা ব্যর্থ হয়েছে।');
