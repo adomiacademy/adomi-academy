@@ -6,6 +6,7 @@
 <title>Adomi Academy</title>
 
 <style>
+
 *{
 margin:0;
 padding:0;
@@ -15,47 +16,35 @@ font-family:Arial,sans-serif;
 
 body{
 background:#f5f7fb;
-color:#333;
 }
 
-header{
+.hero{
 background:linear-gradient(135deg,#2563eb,#7c3aed);
+padding:120px 20px;
+text-align:center;
 color:white;
-padding:80px 20px;
-text-align:center;
 }
 
-header h1{
-font-size:55px;
-margin-bottom:15px;
+.hero h1{
+font-size:60px;
+margin-bottom:20px;
 }
 
-header p{
-font-size:20px;
-margin-bottom:30px;
-}
-
-.btn{
-background:white;
-color:#2563eb;
-padding:15px 30px;
-border-radius:8px;
-text-decoration:none;
-font-weight:bold;
-display:inline-block;
-}
-
-section{
-padding:70px 10%;
-}
-
-.section-title{
-text-align:center;
-font-size:36px;
-margin-bottom:40px;
+.hero p{
+font-size:22px;
 }
 
 .courses{
+padding:80px 8%;
+}
+
+.title{
+text-align:center;
+font-size:40px;
+margin-bottom:50px;
+}
+
+.grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
 gap:25px;
@@ -63,9 +52,14 @@ gap:25px;
 
 .card{
 background:white;
-border-radius:15px;
 padding:25px;
-box-shadow:0 5px 20px rgba(0,0,0,.1);
+border-radius:15px;
+box-shadow:0 5px 20px rgba(0,0,0,.08);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-8px);
 }
 
 .card h3{
@@ -73,40 +67,19 @@ margin-bottom:10px;
 }
 
 .price{
-font-size:24px;
-font-weight:bold;
 color:#2563eb;
+font-size:28px;
+font-weight:bold;
 margin:15px 0;
 }
 
-.buy-btn{
+.btn{
 display:inline-block;
 background:#2563eb;
 color:white;
-padding:10px 20px;
+padding:12px 25px;
 border-radius:8px;
 text-decoration:none;
-}
-
-.reviews{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-gap:20px;
-}
-
-.review{
-background:white;
-padding:25px;
-border-radius:15px;
-box-shadow:0 5px 20px rgba(0,0,0,.1);
-}
-
-.contact{
-background:white;
-padding:40px;
-border-radius:15px;
-box-shadow:0 5px 20px rgba(0,0,0,.1);
-text-align:center;
 }
 
 footer{
@@ -114,95 +87,108 @@ background:#111827;
 color:white;
 text-align:center;
 padding:30px;
-margin-top:50px;
+margin-top:80px;
 }
+
 </style>
 </head>
 
 <body>
 
-<header>
+<section class="hero">
 <h1>Adomi Academy</h1>
-<p>Learn Digital Skills & Build Your Future</p>
-<a href="#courses" class="btn">Explore Courses</a>
-</header>
+<p>Bangladesh's Smart Digital Learning Platform</p>
+</section>
 
-<section id="courses">
-<h2 class="section-title">Featured Courses</h2>
+<section class="courses">
 
-<div class="courses">
+<h2 class="title">Our Premium Courses</h2>
+
+<div class="grid">
 
 <div class="card">
-<h3>YouTube Growth Mastery</h3>
-<p>Learn how to grow and monetize your YouTube channel.</p>
+<h3>CPA Marketing Course</h3>
+<p>Complete CPA marketing training from beginner to advanced.</p>
 <div class="price">৳999</div>
-<a href="#" class="buy-btn">Enroll Now</a>
+<a href="#" class="btn">View Course</a>
 </div>
 
 <div class="card">
-<h3>AI Masterclass</h3>
-<p>Learn ChatGPT, AI Tools & Content Creation.</p>
+<h3>Adsterra Marketing A-Z</h3>
+<p>Learn Adsterra monetization and traffic methods.</p>
+<div class="price">৳999</div>
+<a href="#" class="btn">View Course</a>
+</div>
+
+<div class="card">
+<h3>Video Editing Course</h3>
+<p>Professional editing using CapCut and PC tools.</p>
+<div class="price">৳999</div>
+<a href="#" class="btn">View Course</a>
+</div>
+
+<div class="card">
+<h3>Digital Marketing</h3>
+<p>SEO, Facebook Ads, Google Ads and more.</p>
 <div class="price">৳1499</div>
-<a href="#" class="buy-btn">Enroll Now</a>
+<a href="#" class="btn">View Course</a>
 </div>
 
 <div class="card">
-<h3>Freelancing Blueprint</h3>
-<p>Start earning online with freelancing skills.</p>
-<div class="price">৳1299</div>
-<a href="#" class="buy-btn">Enroll Now</a>
+<h3>Graphic Design</h3>
+<p>Photoshop, Illustrator and design fundamentals.</p>
+<div class="price">৳1499</div>
+<a href="#" class="btn">View Course</a>
+</div>
+
+<div class="card">
+<h3>YouTube & Facebook Success</h3>
+<p>Grow audience and monetize social media.</p>
+<div class="price">৳1499</div>
+<a href="#" class="btn">View Course</a>
+</div>
+
+<div class="card">
+<h3>AI Course</h3>
+<p>ChatGPT, AI tools and automation.</p>
+<div class="price">৳999</div>
+<a href="#" class="btn">View Course</a>
+</div>
+
+<div class="card">
+<h3>T-Shirt Design</h3>
+<p>Create professional POD designs.</p>
+<div class="price">৳999</div>
+<a href="#" class="btn">View Course</a>
+</div>
+
+<div class="card">
+<h3>Freelancing With Mobile</h3>
+<p>Earn online using only your smartphone.</p>
+<div class="price">৳999</div>
+<a href="#" class="btn">View Course</a>
+</div>
+
+<div class="card">
+<h3>CapCut Editing With Mobile</h3>
+<p>Master mobile video editing professionally.</p>
+<div class="price">৳799</div>
+<a href="#" class="btn">View Course</a>
+</div>
+
+<div class="card">
+<h3>Content Creation With Mobile</h3>
+<p>Create viral content using mobile devices.</p>
+<div class="price">৳999</div>
+<a href="#" class="btn">View Course</a>
 </div>
 
 </div>
-</section>
 
-<section>
-<h2 class="section-title">Student Reviews</h2>
-
-<div class="reviews">
-
-<div class="review">
-⭐⭐⭐⭐⭐
-<p>Excellent course. Easy to understand and practical.</p>
-<b>- Rahim</b>
-</div>
-
-<div class="review">
-⭐⭐⭐⭐⭐
-<p>I learned YouTube growth strategies and got results.</p>
-<b>- Karim</b>
-</div>
-
-<div class="review">
-⭐⭐⭐⭐⭐
-<p>Best online learning platform for beginners.</p>
-<b>- Jannat</b>
-</div>
-
-</div>
-</section>
-
-<section>
-<h2 class="section-title">Payment & Contact</h2>
-
-<div class="contact">
-<h3>bKash Payment</h3>
-<p>Send payment to:</p>
-
-<h2>01XXXXXXXXX</h2>
-
-<br>
-
-<p>After payment, send your transaction ID via Facebook or Email.</p>
-
-<br>
-
-<p>Email: support@adomiacademy.com</p>
-</div>
 </section>
 
 <footer>
-© 2025 Adomi Academy. All Rights Reserved.
+© 2025 Adomi Academy
 </footer>
 
 </body>
