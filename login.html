@@ -64,44 +64,14 @@
             color: white;
         }
 
-        .auth-card h2 {
-            font-size: 24px;
-            margin-bottom: 8px;
-        }
+        .auth-card h2 { font-size: 24px; margin-bottom: 8px; }
+        .auth-card p { color: var(--text-muted); font-size: 14px; margin-bottom: 30px; }
 
-        .auth-card p {
-            color: var(--text-muted);
-            font-size: 14px;
-            margin-bottom: 30px;
-        }
+        .input-group { text-align: left; margin-bottom: 20px; }
+        .input-group label { display: block; font-size: 13px; font-weight: 500; color: var(--text-muted); margin-bottom: 8px; margin-left: 5px; }
 
-        .input-group {
-            text-align: left;
-            margin-bottom: 20px;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            margin-left: 5px;
-        }
-
-        .input-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .input-wrapper i {
-            position: absolute;
-            left: 15px;
-            color: var(--text-muted);
-            font-size: 16px;
-        }
-
+        .input-wrapper { position: relative; display: flex; align-items: center; }
+        .input-wrapper i { position: absolute; left: 15px; color: var(--text-muted); font-size: 16px; }
         .input-wrapper input {
             width: 100%;
             background: rgba(255, 255, 255, 0.03);
@@ -133,40 +103,13 @@
             box-shadow: 0 10px 20px rgba(255, 45, 85, 0.2);
             transition: 0.3s;
             margin-top: 10px;
-            display: block;
-            text-decoration: none;
         }
 
-        .auth-btn:hover {
-            transform: translateY(-2px);
-            opacity: 0.9;
-        }
-
-        .extra-links {
-            margin-top: 25px;
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        .extra-links a {
-            color: var(--primary-pink);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .back-home {
-            margin-top: 30px;
-            display: inline-block;
-            font-size: 13px;
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: 0.3s;
-        }
-
-        .back-home:hover {
-            color: white;
-        }
-
+        .auth-btn:hover { transform: translateY(-2px); opacity: 0.9; }
+        .extra-links { margin-top: 25px; font-size: 14px; color: var(--text-muted); }
+        .extra-links a { color: var(--primary-pink); text-decoration: none; font-weight: 600; }
+        .back-home { margin-top: 30px; display: inline-block; font-size: 13px; color: var(--text-muted); text-decoration: none; transition: 0.3s; }
+        .back-home:hover { color: white; }
         .hidden { display: none; }
     </style>
 </head>
@@ -198,12 +141,11 @@
                 </div>
             </div>
 
-            <button class="auth-btn" onclick="handleLogin()">Login to Account</button>
+            <button class="auth-btn" id="btn-login">Login to Account</button>
 
             <div class="extra-links">
                 Don't have an account? <a href="#" onclick="toggleAuth()">Register Now</a>
             </div>
-            
             <a href="index.html" class="back-home"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
         </div>
 
@@ -239,7 +181,7 @@
                 </div>
             </div>
 
-            <button class="auth-btn" onclick="handleRegister()">Create My Account</button>
+            <button class="auth-btn" id="btn-register">Create My Account</button>
 
             <div class="extra-links">
                 Already have an account? <a href="#" onclick="toggleAuth()">Login Here</a>
@@ -248,58 +190,75 @@
 
     </div>
 
-    <script>
-        // ফর্ম অদলবদল (Login / Register) করার ফাংশন
-        function toggleAuth() {
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        // আপনার প্রজেক্টের আসল ডাটা সেট করা হলো
+        const firebaseConfig = {
+            apiKey: "AIzaSyDitknDA_jj50sWbLb4DVlRXQ1HVmRLJIs",
+            authDomain: "adomi-academy.firebaseapp.com",
+            projectId: "adomi-academy",
+            storageBucket: "adomi-academy.firebasestorage.app",
+            messagingSenderId: "1048951424363",
+            appId: "1:1048951424363:web:c8d8204bd0b60cee4e382e",
+            measurementId: "G-7YVBYPQK73"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        window.toggleAuth = function() {
             document.getElementById('login-form').classList.toggle('hidden');
             document.getElementById('register-form').classList.toggle('hidden');
         }
 
-        // ১. রেজিস্ট্রেশন করার সময় ডাটা ব্রাউজারে সেভ করার ফাংশন
-        function handleRegister() {
-            const name = document.getElementById('reg-name').value.trim();
+        // ১. ফায়ারবেস রেজিস্ট্রেশন সিস্টেম
+        document.getElementById('btn-register').addEventListener('click', () => {
             const email = document.getElementById('reg-email').value.trim();
             const password = document.getElementById('reg-password').value.trim();
+            const name = document.getElementById('reg-name').value.trim();
 
-            // খালি ইনপুট চেক করা
-            if(name === "" || email === "" || password === "") {
-                alert('দয়া করে সবগুলো বক্স পূরণ করুন!');
+            if(!email || !password || !name) {
+                alert('অনুগ্রহ করে সব তথ্য দিন!');
                 return;
             }
 
-            // ব্রাউজারের মেমোরিতে (LocalStorage) ডাটা সেভ করে রাখা হচ্ছে
-            localStorage.setItem('saved_email', email);
-            localStorage.setItem('saved_password', password);
-            localStorage.setItem('saved_name', name);
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    alert('আপনার অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে! এবার লগইন করুন।');
+                    toggleAuth();
+                })
+                .catch((error) => {
+                    if (error.code === 'auth/weak-password') {
+                        alert('পাসওয়ার্ডটি দুর্বল! অন্তত ৬ ডিজিটের পাসওয়ার্ড দিন।');
+                    } else if (error.code === 'auth/email-already-in-use') {
+                        alert('এই ইমেইলটি দিয়ে ইতিমধ্যে অ্যাকাউন্ট খোলা হয়েছে!');
+                    } else {
+                        alert('ভুল হয়েছে: ' + error.message);
+                    }
+                });
+        });
 
-            alert('আপনার একাউন্ট সফলভাবে তৈরি হয়েছে! এবার সঠিক ইমেইল ও পাসওয়ার্ড দিয়ে লগইন করুন।');
-            toggleAuth(); // অটোমেটিক লগইন স্ক্রিনে নিয়ে যাবে
-        }
+        // ২. ফায়ারবেস লগইন সিস্টেম
+        document.getElementById('btn-login').addEventListener('click', () => {
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value.trim();
 
-        // ২. লগইন করার সময় সঠিক ডাটা যাচাই করার ফাংশন
-        function handleLogin() {
-            const emailInput = document.getElementById('login-email').value.trim();
-            const passwordInput = document.getElementById('login-password').value.trim();
-
-            // ব্রাউজার মেমোরি থেকে আগের সেভ করা ডাটা তুলে আনা হচ্ছে
-            const savedEmail = localStorage.getItem('saved_email');
-            const savedPassword = localStorage.getItem('saved_password');
-
-            // যদি কোনো একাউন্ট রেজিস্টার করাই না থাকে
-            if(!savedEmail) {
-                alert('এই ব্রাউজারে কোনো একাউন্ট খুঁজে পাওয়া যায়নি! প্রথমে Register Now-তে ক্লিক করে একাউন্ট তৈরি করুন।');
+            if(!email || !password) {
+                alert('ইমেইল এবং পাসওয়ার্ড লিখুন!');
                 return;
             }
 
-            // ইনপুট দেওয়া ডাটার সাথে ম্যাচিং চেক করা হচ্ছে
-            if (emailInput === savedEmail && passwordInput === savedPassword) {
-                alert('অভিনন্দন! লগইন সফল হয়েছে।');
-                window.location.href = 'dashboard.html'; // শুধু মিললেই ড্যাশবোর্ডে ঢুকতে দেবে
-            } else {
-                alert('দুঃখিত! ভুল ইমেইল বা পাসওয়ার্ড দিয়েছেন। আবার চেষ্টা করুন।');
-            }
-        }
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    alert('লগইন সফল হয়েছে!');
+                    window.location.href = 'dashboard.html'; 
+                })
+                .catch((error) => {
+                    alert('দুঃখিত! ভুল ইমেইল বা পাসওয়ার্ড দিয়েছেন অথবা একাউন্টটি তৈরি করা নেই।');
+                });
+        });
     </script>
-
 </body>
 </html>
