@@ -1,229 +1,636 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Adomi Academy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adomi Academy - Learn New Skills</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
+    <style>
+        /* মূল কালার ও থিম ভ্যারিয়েবল */
+        :root {
+            --bg-dark: #0b111e;       /* মূল ডার্ক ব্যাকগ্রাউন্ড */
+            --bg-card: #111827;       /* কার্ড ও নেভবারের ব্যাকগ্রাউন্ড */
+            --text-main: #ffffff;     /* প্রধান সাদা টেক্সট */
+            --text-muted: #9ca3af;    /* ধূসর টেক্সট */
+            --primary-pink: #ff2d55;  /* পিঙ্ক বাটন ও হাইলাইট কালার */
+            --accent-purple: #6366f1; /* পার্পল কালার */
+            --accent-green: #10b981;  /* বিকাশ/নগদ/হোয়াটসঅ্যাপ এর জন্য */
+        }
 
-body{
-background:#f5f7fb;
-color:#333;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
 
-.navbar{
-background:#111827;
-padding:15px 8%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
 
-.logo{
-display:flex;
-align-items:center;
-gap:10px;
-color:white;
-font-size:24px;
-font-weight:bold;
-}
+        /*--- নেভিগেশন বার ---*/
+        .navbar {
+            background-color: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
 
-.logo img{
-height:50px;
-width:auto;
-}
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-main);
+            font-size: 22px;
+            font-weight: 700;
+            text-decoration: none;
+        }
 
-.nav-links{
-display:flex;
-gap:10px;
-}
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
 
-.nav-btn{
-background:#2563eb;
-color:white;
-padding:10px 20px;
-text-decoration:none;
-border-radius:8px;
-display:inline-block;
-}
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
 
-.hero{
-background:linear-gradient(135deg,#2563eb,#7c3aed);
-color:white;
-text-align:center;
-padding:120px 20px;
-}
+        .nav-links li a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
 
-.hero h1{
-font-size:60px;
-margin-bottom:15px;
-}
+        .nav-links li a:hover, .nav-links li a.active {
+            color: var(--text-main);
+        }
 
-.hero p{
-font-size:22px;
-margin-bottom:30px;
-}
+        .nav-buttons {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
 
-.btn{
-background:white;
-color:#2563eb;
-padding:15px 30px;
-text-decoration:none;
-border-radius:10px;
-font-weight:bold;
-}
+        .login-btn {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+        }
 
-section{
-padding:80px 8%;
-}
+        .register-btn {
+            background-color: var(--primary-pink);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            box-shadow: 0 4px 15px rgba(255, 45, 85, 0.3);
+            transition: 0.3s;
+        }
 
-.title{
-text-align:center;
-font-size:40px;
-margin-bottom:50px;
-}
+        .register-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
 
-.courses{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:25px;
-}
+        /*--- হিরো সেকশন ---*/
+        .hero {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 80px 8% 100px 8%;
+            gap: 40px;
+            position: relative;
+        }
 
-.card{
-background:white;
-padding:25px;
-border-radius:15px;
-box-shadow:0 5px 20px rgba(0,0,0,.1);
-}
+        .hero-content {
+            max-width: 55%;
+        }
 
-.card h3{
-margin-bottom:10px;
-}
+        .hero-tag {
+            color: var(--primary-pink);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
 
-.card p{
-margin-bottom:15px;
-}
+        .hero h1 {
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
 
-.card a{
-display:inline-block;
-background:#2563eb;
-color:white;
-padding:10px 20px;
-text-decoration:none;
-border-radius:8px;
-}
+        .hero p {
+            color: var(--text-muted);
+            font-size: 16px;
+            margin-bottom: 35px;
+            line-height: 1.6;
+        }
 
-.contact-box{
-background:white;
-padding:40px;
-border-radius:15px;
-box-shadow:0 5px 20px rgba(0,0,0,.1);
-text-align:center;
-}
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+        }
 
-.contact-box h3{
-margin-bottom:15px;
-}
+        .view-btn {
+            background-color: var(--primary-pink);
+            color: white;
+            padding: 14px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(255, 45, 85, 0.3);
+        }
 
-.contact-box p{
-margin-bottom:10px;
-font-size:18px;
-}
+        .watch-btn {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 14px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
 
-footer{
-background:#111827;
-color:white;
-text-align:center;
-padding:30px;
-}
-</style>
+        .watch-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* হিরো ডানপাশের স্ট্যাটাস ইমেজ */
+        .hero-right {
+            position: relative;
+            width: 45%;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .main-student-img {
+            width: 100%;
+            max-width: 420px;
+            border-radius: 20px;
+            background: #1f2937; /* ছবি না থাকলে এই ব্যাকগ্রাউন্ড দেখাবে */
+            height: 380px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+        }
+
+        /* ছবির মতো ভাসমান স্ট্যাটাস বক্স */
+        .status-badge {
+            position: absolute;
+            background: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .badge-1 { top: 40px; left: -20px; }
+        .badge-2 { bottom: 40px; left: -40px; }
+
+        .status-badge i {
+            font-size: 20px;
+            color: var(--primary-pink);
+            background: rgba(255, 45, 85, 0.1);
+            padding: 10px;
+            border-radius: 50%;
+        }
+
+        .status-badge i.purple-icon {
+            color: var(--accent-purple);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .status-info h4 { font-size: 16px; font-weight: 700; }
+        .status-info p { font-size: 12px; color: var(--text-muted); }
+
+        /*--- ফিচার সেকশন (নিচের ৩টি আইকন) ---*/
+        .features {
+            display: flex;
+            justify-content: flex-start;
+            gap: 50px;
+            padding: 0 8% 60px 8%;
+        }
+
+        .feat-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .feat-item i {
+            font-size: 20px;
+            color: var(--primary-pink);
+            background: rgba(255, 45, 85, 0.1);
+            padding: 12px;
+            border-radius: 50%;
+        }
+
+        .feat-text h4 { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+        .feat-text p { font-size: 12px; color: var(--text-muted); }
+
+        /*--- কোর্স সেকশন ---*/
+        .section-container {
+            padding: 60px 8% 80px 8%;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .course-card {
+            background-color: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: 0.3s;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        /* ছবির মতো থাম্বনেইল এরিয়া */
+        .course-thumb {
+            height: 140px;
+            background: linear-gradient(135deg, #1e1b4b, #311042);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--accent-purple);
+            position: relative;
+        }
+
+        .course-thumb.cpa { background: linear-gradient(135deg, #062047, #0b3a75); color: #38bdf8; }
+        .course-thumb.ai { background: linear-gradient(135deg, #1e1b4b, #4338ca); color: #818cf8; }
+        .course-thumb.video { background: linear-gradient(135deg, #450a0a, #7f1d1d); color: #f87171; }
+        .course-thumb.marketing { background: linear-gradient(135deg, #064e3b, #065f46); color: #34d399; }
+
+        .thumb-tag {
+            font-size: 11px;
+            position: absolute;
+            bottom: 10px;
+            left: 15px;
+            background: rgba(0,0,0,0.4);
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #fff;
+            font-weight: 400;
+        }
+
+        .course-info {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .course-info h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .course-meta {
+            display: flex;
+            font-size: 12px;
+            color: var(--text-muted);
+            gap: 15px;
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /*--- কন্টাক্ট ও পেমেন্ট সেকশন ---*/
+        .contact-section {
+            background-color: var(--bg-card);
+            border-radius: 16px;
+            padding: 40px;
+            margin-top: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .contact-left h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .contact-left p {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .fb-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #1877f2;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .payment-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .pay-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 15px 20px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pay-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .pay-brand i { font-size: 18px; }
+        .pay-brand .fa-mobile-screen { color: #e2136e; } /* bKash color accent */
+        .pay-brand .fa-wallet { color: #f7941d; } /* Nagad color accent */
+        .pay-brand .fa-whatsapp { color: #25d366; }
+
+        .pay-number {
+            font-family: monospace;
+            font-size: 16px;
+            color: var(--primary-pink);
+            font-weight: bold;
+        }
+
+        /*--- ফুটার ---*/
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 60px;
+        }
+
+        /* রেসপন্সিভ মোবাইল ভিউ */
+        @media (max-width: 768px) {
+            .navbar { padding: 15px 5%; }
+            .nav-links { display: none; } /* মোবাইলে মেনু হাইড থাকবে */
+            .hero { flex-direction: column; text-align: center; padding: 40px 5%; }
+            .hero-content { max-width: 100%; }
+            .hero h1 { font-size: 36px; }
+            .hero-btns { justify-content: center; }
+            .hero-right { width: 100%; justify-content: center; margin-top: 30px; }
+            .features { flex-direction: column; gap: 20px; padding: 0 5% 40px 5%; }
+            .contact-section { grid-template-columns: 1fr; gap: 30px; padding: 25px; }
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="navbar">
+    <div class="navbar">
+        <a href="index.html" class="logo">
+            <i class="fa-solid fa-graduation-cap" style="color: var(--primary-pink);"></i>
+            <span>Adomi Academy</span>
+        </a>
 
-<div class="logo">
-<img src="images/logo.png" alt="Adomi Academy Logo">
-<span>Adomi Academy</span>
-</div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="courses.html">Courses</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
 
-<div class="nav-links">
-<a href="courses.html" class="nav-btn">All Courses</a>
-<a href="login.html" class="nav-btn">Student Login</a>
-</div>
+        <div class="nav-buttons">
+            <a href="login.html" class="login-btn">Login</a>
+            <a href="login.html" class="register-btn">Register</a>
+        </div>
+    </div>
 
-</div>
+    <div class="hero">
+        <div class="hero-content">
+            <span class="hero-tag">
+                <i class="fa-solid fa-bolt"></i> Best Online Learning Platform
+            </span>
+            <h1>Learn New Skills<br>Anywhere, Anytime</h1>
+            <p>Join thousands of students and start learning from expert instructors around the world. Elevate your career by learning high-income digital skills today.</p>
+            <div class="hero-btns">
+                <a href="courses.html" class="view-btn">View Courses</a>
+                <a href="https://www.facebook.com/adomihasan" target="_blank" class="watch-btn">
+                    <i class="fa-solid fa-play"></i> How It Works
+                </a>
+            </div>
+        </div>
 
-<div class="hero">
-<h1>Adomi Academy</h1>
-<p>Learn High Income Digital Skills & Start Earning Online</p>
-<a href="courses.html" class="btn">Explore Courses</a>
-</div>
+        <div class="hero-right">
+            <div class="main-student-img">
+                <i class="fa-solid fa-user-astronaut fa-4x"></i>
+            </div>
+            
+            <div class="status-badge badge-1">
+                <i class="fa-solid fa-book-open"></i>
+                <div class="status-info">
+                    <h4>50+</h4>
+                    <p>Premium Courses</p>
+                </div>
+            </div>
 
-<section>
-<h2 class="title">Our Premium Courses</h2>
+            <div class="status-badge badge-2">
+                <i class="fa-solid fa-star purple-icon"></i>
+                <div class="status-info">
+                    <h4>4.8</h4>
+                    <p>Student Ratings</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div class="courses">
+    <div class="features">
+        <div class="feat-item">
+            <i class="fa-solid fa-tv"></i>
+            <div class="feat-text">
+                <h4>Quality Courses</h4>
+                <p>Learn from industry experts</p>
+            </div>
+        </div>
+        <div class="feat-item">
+            <i class="fa-solid fa-clock"></i>
+            <div class="feat-text">
+                <h4>Learn at Your Pace</h4>
+                <p>Study anytime, anywhere</p>
+            </div>
+        </div>
+        <div class="feat-item">
+            <i class="fa-solid fa-certificate"></i>
+            <div class="feat-text">
+                <h4>Certification</h4>
+                <p>Get certified and grow</p>
+            </div>
+        </div>
+    </div>
 
-<div class="card">
-<h3>CPA Marketing</h3>
-<p>Learn CPA Marketing from Beginner to Advanced.</p>
-<a href="courses.html">View Course</a>
-</div>
+    <section class="section-container">
+        <h2 class="section-title">Popular Courses</h2>
+        
+        <div class="courses-grid">
+            
+            <a href="courses.html" class="course-card">
+                <div class="course-thumb cpa">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span class="thumb-tag">Full Course</span>
+                </div>
+                <div class="course-info">
+                    <h3>CPA Marketing Mastery</h3>
+                    <div class="course-meta">
+                        <span><i class="fa-solid fa-book"></i> 25 Lessons</span>
+                        <span><i class="fa-solid fa-clock"></i> 12h 30m</span>
+                    </div>
+                </div>
+            </a>
 
-<div class="card">
-<h3>AI Course</h3>
-<p>ChatGPT, AI Tools & Automation.</p>
-<a href="courses.html">View Course</a>
-</div>
+            <a href="courses.html" class="course-card">
+                <div class="course-thumb ai">
+                    <i class="fa-solid fa-robot"></i>
+                    <span class="thumb-tag">AI & Automation</span>
+                </div>
+                <div class="course-info">
+                    <h3>Advanced AI & ChatGPT Course</h3>
+                    <div class="course-meta">
+                        <span><i class="fa-solid fa-book"></i> 18 Lessons</span>
+                        <span><i class="fa-solid fa-clock"></i> 8h 45m</span>
+                    </div>
+                </div>
+            </a>
 
-<div class="card">
-<h3>Video Editing Course</h3>
-<p>Professional Video Editing Training.</p>
-<a href="courses.html">View Course</a>
-</div>
+            <a href="courses.html" class="course-card">
+                <div class="course-thumb video">
+                    <i class="fa-solid fa-video"></i>
+                    <span class="thumb-tag">Pro Training</span>
+                </div>
+                <div class="course-info">
+                    <h3>Professional Video Editing</h3>
+                    <div class="course-meta">
+                        <span><i class="fa-solid fa-book"></i> 20 Lessons</span>
+                        <span><i class="fa-solid fa-clock"></i> 10h 15m</span>
+                    </div>
+                </div>
+            </a>
 
-<div class="card">
-<h3>Digital Marketing</h3>
-<p>Facebook Ads, SEO & Marketing Strategy.</p>
-<a href="courses.html">View Course</a>
-</div>
+            <a href="courses.html" class="course-card">
+                <div class="course-thumb marketing">
+                    <i class="fa-solid fa-bullhorn"></i>
+                    <span class="thumb-tag">Masterclass</span>
+                </div>
+                <div class="course-info">
+                    <h3>Digital Marketing & Facebook Ads</h3>
+                    <div class="course-meta">
+                        <span><i class="fa-solid fa-book"></i> 14 Lessons</span>
+                        <span><i class="fa-solid fa-clock"></i> 6h 30m</span>
+                    </div>
+                </div>
+            </a>
 
-</div>
-</section>
+        </div>
+    </section>
 
-<section>
-<h2 class="title">Payment & Contact</h2>
+    <section class="section-container" style="padding-top: 0;">
+        <div class="contact-section">
+            <div class="contact-left">
+                <h3>Payment & Contact Info</h3>
+                <p>আমাদের প্রিমিয়াম কোর্সে জয়েন করার জন্য নিচে দেওয়া নাম্বারে যোগাযোগ করুন অথবা সরাসরি আমাদের অফিসিয়াল ফেসবুক পেজে মেসেজ দিন।</p>
+                <a href="https://www.facebook.com/adomihasan" target="_blank" class="fb-btn">
+                    <i class="fa-brands fa-facebook"></i> Contact Facebook Page
+                </a>
+            </div>
 
-<div class="contact-box">
+            <div class="payment-list">
+                <div class="pay-item">
+                    <div class="pay-brand">
+                        <i class="fa-solid fa-mobile-screen"></i> bKash (Personal)
+                    </div>
+                    <div class="pay-number">01568087094</div>
+                </div>
+                <div class="pay-item">
+                    <div class="pay-brand">
+                        <i class="fa-solid fa-wallet"></i> Nagad (Personal)
+                    </div>
+                    <div class="pay-number">01568087094</div>
+                </div>
+                <div class="pay-item">
+                    <div class="pay-brand">
+                        <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                    </div>
+                    <div class="pay-number">01568087094</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<h3>Payment Numbers</h3>
-
-<p><b>bKash:</b> 01568087094</p>
-<p><b>Nagad:</b> 01568087094</p>
-
-<p><b>WhatsApp:</b> 01568087094</p>
-
-<p>
-<a href="https://www.facebook.com/adomihasan" target="_blank">
-Facebook Page
-</a>
-</p>
-
-</div>
-</section>
-
-<footer>
-© 2025 Adomi Academy. All Rights Reserved.
-</footer>
+    <footer>
+        © 2026 Adomi Academy. All Rights Reserved.
+    </footer>
 
 </body>
 </html>
